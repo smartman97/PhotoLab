@@ -79,6 +79,45 @@ public class IntArrayWorker
     System.out.println();
   }
   
+  public int getCount(int nums)
+  {
+	  int count = 0;
+	  for(int row = 0; row < matrix.length; row++)
+	  {
+		  for(int col = 0; col < matrix[0].length; col++)
+		  {
+			  if(nums == matrix[row][col])
+			  {
+				  count++;
+			  }
+		  }
+	  }
+	  return count;
+  }
+  
+  public int getLargest()
+  {
+	  int largestNum = matrix[0][0];
+	  for(int row = 0; row < matrix.length; row++)
+	  {
+		  for(int col = 0; col < matrix[0].length; col++)
+		  {
+			  if(matrix[row][col] > largestNum)
+			  {
+				  largestNum = matrix[row][col];
+			  }
+		  }
+	  }
+	  return largestNum;
+  }
+  
+  public int getColTotal()
+  {
+	  int colTotal = 0;
+	  
+	  return colTotal;
+  }
+  
   
   /** 
    * fill the array with a pattern
