@@ -168,6 +168,45 @@ public class Picture extends SimplePicture
     }
   }
   
+  public void randomBlue()
+  {
+	  Pixel[][] pixels = this.getPixels2D();
+	    for (Pixel[] rowArray : pixels)
+	    {
+	      for (Pixel pixelObj : rowArray)
+	      {
+	    	  Random rand = new Random();
+	    	  pixelObj.setBlue(rand.nextInt(256));
+	      }
+	  }
+  }
+  
+  public void randomGreen()
+  {
+	  Pixel[][] pixels = this.getPixels2D();
+	    for (Pixel[] rowArray : pixels)
+	    {
+	      for (Pixel pixelObj : rowArray)
+	      {
+	    	  Random rand = new Random();
+	    	  pixelObj.setGreen(rand.nextInt(256));
+	      }
+	  }
+  }
+  
+  public void randomRed()
+  {
+	  Pixel[][] pixels = this.getPixels2D();
+	    for (Pixel[] rowArray : pixels)
+	    {
+	      for (Pixel pixelObj : rowArray)
+	      {
+	    	  Random rand = new Random();
+	    	  pixelObj.setRed(rand.nextInt(256));
+	      }
+	  }
+  }
+  
   private Color randomColor()
 	{
 		Random rand = new Random();
@@ -306,10 +345,9 @@ public class Picture extends SimplePicture
   public static void main(String[] args) 
   {
     Picture beach = new Picture("beach.jpg");
-    beach.allGreen();
-    beach.allRed();
-    beach.explore();
-    beach.randomFilter();
+    beach.randomRed();
+    beach.randomGreen();
+    //beach.randomBlue();
     beach.explore();
   }
   

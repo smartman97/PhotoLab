@@ -111,10 +111,13 @@ public class IntArrayWorker
 	  return largestNum;
   }
   
-  public int getColTotal()
+  public int getColTotal(int nums)
   {
 	  int colTotal = 0;
-	  
+	  for(int row = 0; row < matrix.length; row++)
+	  {
+		  colTotal = colTotal + matrix[row][nums];
+	  }
 	  return colTotal;
   }
   
