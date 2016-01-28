@@ -239,6 +239,40 @@ public class Picture extends SimplePicture
     } 
   }
   
+  public void mirrorVerticalRightToLeft()
+  {
+	  Pixel[][] pixels = this.getPixels2D();
+	  Pixel leftPixel = null;
+	  Pixel rightPixel = null;
+	  int width = pixels[0].length;
+	  for(int row = 0; row < pixels.length; row++)
+	  {
+		  for(int col = width -1; col > width / 2; col--)
+		  {
+			  rightPixel = pixels[row][col];
+			  leftPixel = pixels[row][(width/2) - (col-width/2)];
+			  leftPixel.setColor(rightPixel.getColor());
+		  }
+	  }
+  }
+  
+  public void mirrorHorizontal()
+  {
+	  Pixel[][] pixels = this.getPixels2D();
+	  Pixel topPixel = null;
+	  Pixel bottomPixel = null;
+	  int height = pixels.length;
+	  for(int row = 0; row < height / 2; row++)
+	  {
+		  for(int col = 0; col < pixels[0].length; col++)
+		  {
+			  topPixel = pixels[row][col];
+			  bottomPixel = pixels[height - 1 - row][col];
+			  bottomPixel.setColor(topPixel.getColor());
+		  }
+	  }
+  }
+  
   /** Mirror just part of a picture of a temple */
   public void mirrorTemple()
   {
@@ -323,14 +357,12 @@ public class Picture extends SimplePicture
     Color rightColor = null;
     for (int row = 0; row < pixels.length; row++)
     {
-      for (int col = 0; 
-           col < pixels[0].length-1; col++)
+      for (int col = 0; col < pixels[0].length-1; col++)
       {
         leftPixel = pixels[row][col];
         rightPixel = pixels[row][col+1];
         rightColor = rightPixel.getColor();
-        if (leftPixel.colorDistance(rightColor) > 
-            edgeDist)
+        if (leftPixel.colorDistance(rightColor) > edgeDist)
           leftPixel.setColor(Color.BLACK);
         else
           leftPixel.setColor(Color.WHITE);
@@ -344,11 +376,14 @@ public class Picture extends SimplePicture
    */
   public static void main(String[] args) 
   {
-    Picture beach = new Picture("beach.jpg");
-    beach.randomRed();
-    beach.randomGreen();
-    //beach.randomBlue();
-    beach.explore();
+    Picture pic = new Picture("butterfly1.jpg");
+    pic.explore();
+    pic.mirrorVertical();
+    pic.mirrorHorizontal();
+    pic.edgeDetection(10);
+    pic.zeroRed();
+    pic.createCollage();
+    pic.explore();
   }
   
 } // this } is the end of class Picture, put all new methods before this
