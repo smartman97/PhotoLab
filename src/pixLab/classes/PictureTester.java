@@ -68,6 +68,14 @@ public class PictureTester
 	    island.explore();
   }
   
+  public static void testMirrorHorizontalBottomToTop()
+  {
+	  Picture island = new Picture("CumberlandIsland.jpg");
+	    island.explore();
+	    island.mirrorHorizontalBottomToTop();
+	    island.explore();
+  }
+  
   /** Method to test mirrorTemple */
   public static void testMirrorTemple()
   {
@@ -110,6 +118,7 @@ public class PictureTester
     //testMirrorVertical();
     //testMirrorVerticalRightToLeft();
 	  testMirrorHorizontal();
+	  testMirrorHorizontalBottomToTop();
     //testMirrorTemple();
     //testMirrorArms();
     //testMirrorGull();
