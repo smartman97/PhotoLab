@@ -210,6 +210,23 @@ public class Picture extends SimplePicture
 	  }
   }
   
+  private void grayScale()
+  {
+	  Pixel[][] pixels = this.getPixels2D();
+	    for (Pixel[] rowArray : pixels)
+	    {
+	      for (Pixel pixelObj : rowArray)
+	      {
+	    	  int red = pixelObj.getRed();
+	    	  int blue = pixelObj.getBlue();
+	    	  int green = pixelObj.getGreen();
+	    	  int average = (red + blue + green) / 3;
+	    	  Color grayColor = new Color(average, average, average);
+	    	  pixelObj.setColor(grayColor);
+	      }
+	  }
+  }
+  
   private Color randomColor()
 	{
 		Random rand = new Random();
@@ -421,14 +438,14 @@ public class Picture extends SimplePicture
    */
   public static void main(String[] args) 
   {
-    Picture pic = new Picture("snowman.jpg");
+    Picture pic = new Picture("CumberlandIsland.jpg");
     pic.explore();
 //    pic.mirrorVertical();
 //    pic.mirrorHorizontal();
 //    pic.edgeDetection(10);
 //    pic.zeroRed();
 //    pic.createCollage();
-    pic.mirrorArms();
+    pic.grayScale();
     pic.explore();
   }
   
