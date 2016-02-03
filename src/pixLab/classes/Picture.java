@@ -239,6 +239,27 @@ public class Picture extends SimplePicture
 		return randomColor;
 	}
   
+  public void negate()
+  {
+	  Pixel[][] pixels = this.getPixels2D();
+	    for (Pixel[] rowArray : pixels)
+	    {
+	      for (Pixel pixelObj : rowArray)
+	      {
+	    	  int g = pixelObj.getGreen();
+	    	  int r = pixelObj.getRed();
+	    	  int b = pixelObj.getBlue();
+	    	  
+	    	  int negateGreen = 255 - g;
+	    	  int negateRed = 255 - r;
+	    	  int negateBlue = 255 - b;
+	    	  
+	    	  Color negateColor = new Color(negateRed, negateGreen, negateBlue);
+	    	  pixelObj.setColor(negateColor);
+	      }
+	    }
+  }
+  
   /** Method that mirrors the picture around a 
     * vertical mirror in the center of the picture
     * from left to right */
@@ -310,6 +331,27 @@ public class Picture extends SimplePicture
 	  }
   }
   
+  public void mirrorDiagonal()
+  {
+	  Pixel[][] pixels = this.getPixels2D();
+	  Pixel rightPixel = null;
+	  Pixel leftPixel = null;
+	  int height = pixels.length;
+	  int width = pixels[0].length;
+	  for(int row = 0; row < height; row++)
+	  {
+		  for(int col = 0; col < width; col++)
+		  {
+			  if(col < height && row < width)
+			  {
+				  rightPixel = pixels[row][col];
+				  leftPixel = pixels[col][row];
+				  leftPixel.setColor(rightPixel.getColor());
+			  }
+		  }
+	  }
+  }
+  
   /** Mirror just part of a picture of a temple */
   public void mirrorTemple()
   {
@@ -373,15 +415,9 @@ public class Picture extends SimplePicture
     Pixel toPixel = null;
     Pixel[][] toPixels = this.getPixels2D();
     Pixel[][] fromPixels = fromPic.getPixels2D();
-    for (int fromRow = 0, toRow = startRow; 
-         fromRow < fromPixels.length &&
-         toRow < toPixels.length; 
-         fromRow++, toRow++)
+    for (int fromRow = 0, toRow = startRow; fromRow < fromPixels.length && toRow < toPixels.length; fromRow++, toRow++)
     {
-      for (int fromCol = 0, toCol = startCol; 
-           fromCol < fromPixels[0].length &&
-           toCol < toPixels[0].length;  
-           fromCol++, toCol++)
+      for (int fromCol = 0, toCol = startCol; fromCol < fromPixels[0].length && toCol < toPixels[0].length; fromCol++, toCol++)
       {
         fromPixel = fromPixels[fromRow][fromCol];
         toPixel = toPixels[toRow][toCol];
@@ -432,6 +468,30 @@ public class Picture extends SimplePicture
     }
   }
   
+  public void edgeDetection2(int edgeDist)
+  {
+    Pixel leftPixel = null;
+    Pixel rightPixel = null;
+    Pixel bottomPixel = null;
+    Pixel[][] pixels = this.getPixels2D();
+    Color rightColor = null;
+    Color bottomColor = null;
+    for (int row = 0; row < pixels.length-1; row++)
+    {
+      for (int col = 0; col < pixels[0].length-1; col++)
+      {
+        leftPixel = pixels[row][col];
+        rightPixel = pixels[row][col+1];
+        bottomPixel = pixels[row+1][col];
+        rightColor = rightPixel.getColor();
+        bottomColor = bottomPixel.getColor();
+        if (leftPixel.colorDistance(rightColor) > edgeDist || leftPixel.colorDistance(bottomColor) > edgeDist)
+          leftPixel.setColor(Color.BLACK);
+        else
+          leftPixel.setColor(Color.WHITE);
+      }
+    }
+  }
   
   /* Main method for testing - each class in Java can have a main 
    * method 
