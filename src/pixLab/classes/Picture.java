@@ -210,7 +210,7 @@ public class Picture extends SimplePicture
 	  }
   }
   
-  private void grayScale()
+  public void grayScale()
   {
 	  Pixel[][] pixels = this.getPixels2D();
 	    for (Pixel[] rowArray : pixels)
@@ -223,6 +223,24 @@ public class Picture extends SimplePicture
 	    	  int average = (red + blue + green) / 3;
 	    	  Color grayColor = new Color(average, average, average);
 	    	  pixelObj.setColor(grayColor);
+	      }
+	  }
+  }
+  
+  public void fixUnderwater()
+  {
+	  Pixel[][] pixels = this.getPixels2D();
+	  for (Pixel[] rowArray : pixels)
+	  {
+	      for (Pixel pixelObj : rowArray)
+	      {
+	    	  if(pixelObj.getRed() > 20 || pixelObj.getBlue() < 160)
+	    	  {
+	    		  pixelObj.setBlue(0);
+	    		  pixelObj.setRed(0);
+	    		  pixelObj.setGreen(0);
+	    	  }
+
 	      }
 	  }
   }
@@ -505,8 +523,8 @@ public class Picture extends SimplePicture
 //    pic.edgeDetection(10);
 //    pic.zeroRed();
 //    pic.createCollage();
-    pic.grayScale();
-    pic.explore();
+    //pic.grayScale();
+    //pic.explore();
   }
   
 } // this } is the end of class Picture, put all new methods before this
